@@ -1,8 +1,4 @@
-
-import { useEffect } from "react";
 import SingleTodoComp from "./SingleTodoComp";
-
-
 
 export default function UserTodosComp({todos, callback : [updateTodo, sendUserIdIfAddBtnClicked]})
 {
