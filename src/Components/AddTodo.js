@@ -10,17 +10,16 @@ export default function AddTodo({userId, callback : closeAddTodoTab})
         closeAddTodoTab(obj)
     }
     return (
-        <div>
-            <label><strong>Create New Todo for User {userId}</strong></label>
-             <div style={{width: "300px", border: "red 1px solid"}}>
+        <div className="card">
+            <div className="card-header"><strong>New Todo for User {userId}</strong></div>
+                <div className="card-body">
                 <label htmlFor="newTodo">Title: </label>
                 <input type="text" placeholder="Learn Java..." id="newTodo" name="newTodo" onChange={(e) => setNewTodo(e.target.value)}/>
-                <br/><br/>
-                <input type="button" value="Create Todo" onClick={handleAddBtnClicked}/>
-                <input type="button" value="Cancel" onClick={() => closeAddTodoTab()}/>
-
-
-            </div>
+                </div>
+                <div className="card-footer">
+                <input className="btn" type="button" value="Create Todo" onClick={handleAddBtnClicked}/>
+                <input className="btn" type="button" value="Cancel" onClick={() => closeAddTodoTab()}/>
+                </div>
         </div>
 
        

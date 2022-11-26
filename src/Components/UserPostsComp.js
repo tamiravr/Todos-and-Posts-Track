@@ -13,9 +13,13 @@ export default function UserPostsComp({posts, callback : sendUserIdIfAddBtnClick
     }
 
     return (
-        <div style={{width :"300px", border : "orange 1px solid"}}>
-            <label><strong>User {checkIfNewUser()}'s Posts</strong></label>
-            <input type="button" value="Add Post" onClick={() => sendUserIdIfAddBtnClicked(checkIfNewUser())}/>
+        <div className="card card-limited">
+            <div className="card-header scorlive-header">
+                <strong>User {checkIfNewUser()}'s Posts</strong>
+                <br/>
+                <input className="btn btn-search" type="button" value="Add Post" onClick={() => sendUserIdIfAddBtnClicked(checkIfNewUser())}/>
+            </div>
+            
             <div>
                 {
                     !Number.isInteger(posts[0]) && posts.map(post => {

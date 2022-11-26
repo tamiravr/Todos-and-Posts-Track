@@ -14,19 +14,15 @@ export default function SingleTodoComp({todo, callback : sendEditedTodoToParent}
     },[isClicked])
 
     return (
-        <>
-        <br/>
-        <div style={{ width : "100%", border : "green 1px solid"}}>
-            <label>Title: {todo.title}</label>
+        <div className="card card-single-todo">
+            <label><strong>Title: </strong>{todo.title}</label>
             <br/><br/>
             <label>
-                Completed: {completed ? "True" : "False"}
+                <strong>Completed: </strong>{completed ? "True" : "False"}
             </label>
-            <br/><br/>
             {
-                !completed && <button type="button" onClick={()=>setIsClicked(true)}>Mark As Completed</button>
+                !completed && <div className="card-footer"><button className='btn btn-outline btn-search' type="button" onClick={()=>setIsClicked(true)}>Mark As Completed</button></div>
             }
         </div>
-        </>
     );
 }

@@ -7,7 +7,7 @@ export default function OtherUserDataComp({address, id, callback : sendChangedDa
 
 
     return(
-        <div style={{width: "200px", border: "blue 1px solid"}}>
+        <div className="card card-other-data">
             <label htmlFor={`userStreet${id}`}>Street:</label>
             <input type="text" id={`userStreet${id}`} name="userStreet" value={address.street} onChange={(e) => sendChangedDataToParent({street: e.target.value, city: address.city, zipcode: address.zipcode})} />
             <br/><br/>

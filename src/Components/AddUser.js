@@ -11,19 +11,20 @@ export default function AddUser({callback : closeAddUserTab})
         closeAddUserTab(obj)
     }
     return (
-        <div style={{width: "300px", border: "pink 1px solid"}}>
-            <label><strong>Add New User</strong></label>
-            <div style={{width: "300px", border: "lightpink 1px solid"}}>
-                <br/><br/>
+        <div className="card">
+            <div className="card-header"><strong>Add New User</strong></div>
+            <div className="card-body">
                 <label htmlFor="newName">Name:</label>
                 <input type="text" name="newName" id="newName" onChange={(e) => setName(e.target.value)}/>
                 <br/><br/>
                 <label htmlFor="newEmail">Email:</label>
                 <input type="email" name="newEmail" id="newEmail" onChange={(e) => setEmail(e.target.value)}/>
-                <br/><br/>
-                <input type="button" value="Create User" onClick={handleAddBtnClicked}/>
-                <input type="button" value="Cancel" onClick={() => closeAddUserTab()}/>
+            </div>   
+            <div className="card-footer">
+                <input className="btn" type="button" value="Create User" onClick={handleAddBtnClicked}/>
+                <input className="btn" type="button" value="Cancel" onClick={() => closeAddUserTab()}/>
             </div>
+            
         </div>
     );
 }

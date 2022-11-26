@@ -11,9 +11,12 @@ export default function UserTodosComp({todos, callback : [updateTodo, sendUserId
     }
 
     return (
-        <div style={{width :"300px", border : "orange 1px solid"}}>
-            <label><strong>User {checkIfNewUser()}'s Todos</strong></label>
-            <input type="button" value="Add Todo" onClick={() => sendUserIdIfAddBtnClicked(checkIfNewUser())}/>
+        <div className="card card-limited">
+            <div className="card-header scorlive-header">
+                <strong>User {checkIfNewUser()}'s Todos</strong>
+                <br/>
+                <input className='btn btn-search' type="button" value="Add Todo" onClick={() => sendUserIdIfAddBtnClicked(checkIfNewUser())}/>
+            </div>
             <div>
                 {
                     !Number.isInteger(todos[0]) && todos.map(todo =>{

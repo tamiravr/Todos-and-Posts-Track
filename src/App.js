@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './App.css';
+import './styles/App.css';
 import UserTodosComp from './Components/UserTodosComp';
 import UserComp from './Components/UserComp';
 import { getRandomNum, getAllData, updateCollection, getUserPosts, getUserTodos, checkIfUserTodosCompleted} from './utils.js';
@@ -73,6 +73,13 @@ function App() {
   const deleteUser = (user) => {
     const collection = updateCollection([...users], user, "DELETE")
     setUsers(collection)
+
+    //removes the user from filteredUsers state in case it exists there.
+    const arr = filteredUsers.filter(u => u.id == user.id)
+    if (arr.length > 0){
+      const filteredUserCollection = updateCollection(filteredUsers, user, "DELETE")
+      setFilteredUsers(filteredUserCollection)
+    }
   }
 
   const updateTodo = (newTodoObj) => {
@@ -121,6 +128,7 @@ function App() {
       const collection = updateCollection(todos, todoObj, "POST")
       setTodos(collection)
       setUserTodos(getUserTodos(collection, todoObj.userId))
+
       if(ifTodosCompleted(todoObj.userId)){
         const index = usersWithCompleteTodos.indexOf(todoObj.userId)
         const arr = [...usersWithCompleteTodos]
@@ -164,42 +172,47 @@ function App() {
   }
 
   return (
-    <div style={{width: "700px", border: "yellow 1px solid", padding: "2px", overflow: "auto"}}>
-      <div className='master' style={{width : "50%", float:"left"}}>
+    <div className='app'>
+      <div style={{textAlign : "center"}}>
+        <h1>Mini-React App - User's Todos & Posts Management</h1>
         <label htmlFor='searchBar'>
-          <strong>Search</strong>
+            <strong>Search</strong>
         </label>
         <input type='text' id='searchBar' name='search' onChange={handleSearch}/>
-        <input type="button" value="Add User" onClick={addUserBtnIsClicked}/>   
-        {
-          filteredUsers.length == 0 && users.map(user => {
-            return <UserComp key={user.id} userObj={user} callbacks={[updateUser, deleteUser, showUserTodos]} finishedTodos={ifTodosCompleted(user.id)} />
-          })
-        }
-        {
-          filteredUsers.length > 0 && filteredUsers.map(user => {
-            return <UserComp key={user.id} userObj={user} callbacks={[updateUser, deleteUser, showUserTodos]} finishedTodos={ifTodosCompleted(user.id)} />
-          })
-        }
-
+        <input className='btn btn-outline btn-search' type="button" value="Add User" onClick={addUserBtnIsClicked}/>
       </div>
-      <div className='details' style={{width : "50%", float : "right"}}>
-        {
-          addUserBtnClicked && <AddUser callback={cancelOrAddUserBtnIsClicked}/>
-        }
-        {
-          !addUserBtnClicked && !userIdThatClickedAddTodo && (userTodos.length > 0 || Number.isInteger(userTodos[0])) && <UserTodosComp todos={[...userTodos]} callback={[updateTodo, addTodoBtnIsClicked]}/>
-        }
-        {
-          !addUserBtnClicked && userIdThatClickedAddTodo ? <AddTodo userId={userIdThatClickedAddTodo} callback={cancelOrAddTodoBtnIsClicked}/> : ""
-        }
-        <br/>
-        {
-          !addUserBtnClicked && !userIdThatClickedAddPost && (userPosts.length > 0 || Number.isInteger(userPosts[0])) && <UserPostsComp posts={[...userPosts]} callback={addPostBtnIsClicked}/>
-        }
-        {
-          !addUserBtnClicked && userIdThatClickedAddPost ? <AddPost userId={userIdThatClickedAddPost} callback={cancelOrAddPostBtnIsClicked} /> : ""
-        }
+      <div className='flex-container'>
+        <div className='master'>
+          {
+            filteredUsers.length == 0 && users.map(user => {
+              return <UserComp key={user.id} userObj={user} callbacks={[updateUser, deleteUser, showUserTodos]} finishedTodos={ifTodosCompleted(user.id)} />
+            })
+          }
+          {
+            filteredUsers.length > 0 && filteredUsers.map(user => {
+              return <UserComp key={user.id} userObj={user} callbacks={[updateUser, deleteUser, showUserTodos]} finishedTodos={ifTodosCompleted(user.id)} />
+            })
+          }
+
+        </div>
+        <div className='details'>
+          {
+            addUserBtnClicked && <AddUser callback={cancelOrAddUserBtnIsClicked}/>
+          }
+          {
+            !addUserBtnClicked && !userIdThatClickedAddTodo && (userTodos.length > 0 || Number.isInteger(userTodos[0])) && <UserTodosComp todos={[...userTodos]} callback={[updateTodo, addTodoBtnIsClicked]}/>
+          }
+          {
+            !addUserBtnClicked && userIdThatClickedAddTodo ? <AddTodo userId={userIdThatClickedAddTodo} callback={cancelOrAddTodoBtnIsClicked}/> : ""
+          }
+          <br/>
+          {
+            !addUserBtnClicked && !userIdThatClickedAddPost && (userPosts.length > 0 || Number.isInteger(userPosts[0])) && <UserPostsComp posts={[...userPosts]} callback={addPostBtnIsClicked}/>
+          }
+          {
+            !addUserBtnClicked && userIdThatClickedAddPost ? <AddPost userId={userIdThatClickedAddPost} callback={cancelOrAddPostBtnIsClicked} /> : ""
+          }
+        </div>
       </div>
     </div>
 

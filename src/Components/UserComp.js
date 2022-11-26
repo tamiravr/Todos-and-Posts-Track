@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import OtherUserDataComp from "./OtherUserDataComp"
+import '../styles/App.css'
 
 
 export default function UserComp({userObj, callbacks : [sendUpdatedUserToParent, sendDeletedUserToParent, sendUserID], finishedTodos})
@@ -22,8 +23,9 @@ export default function UserComp({userObj, callbacks : [sendUpdatedUserToParent,
 
     return(
         <>
-        <br/>
-        <div style={{width: "300px", border: finishedTodos ? "green 2px solid" : "red 2px solid", backgroundColor: idClicked ? "salmon" : "white"}}>
+        <div iffinishedtodos={finishedTodos.toString()} className='card card-user card-shadow' style={{backgroundColor: idClicked ? "salmon" : "white"}}>
+            <div className="card-header"><strong>{`User ${userData.id} Card` }</strong></div>
+            <div className="card-body">
             <label onClick={() => setIdClicked(!idClicked)}>
                 ID: {userData.id}
             </label>
@@ -33,13 +35,15 @@ export default function UserComp({userObj, callbacks : [sendUpdatedUserToParent,
             <br/><br/>
             <label htmlFor={`userEmail${userData.id}`}>Email:</label>
             <input type="text" id={`userEmail${userData.id}`} name="userEmail" value={userData.email} onChange={(e) => setUserData({...userData, email: e.target.value})}/>
-            <br/><br/>
             {
                 isHovered && <OtherUserDataComp address={userData.address} id={userData.id} callback={getAddressDataFromChild}/>
             }
-            <button type="button" onMouseOver={() => setIsHovered(true)} onClick={() => setIsHovered(false)}>Other Data</button>
-            <button type="button" onClick={() => sendUpdatedUserToParent(userData)}>Update</button>
-            <button type="button" onClick={() => sendDeletedUserToParent(userData)}>Delete</button>
+            </div>
+            <div className="card-footer">
+            <button className='btn btn-outline' type="button" onMouseOver={() => setIsHovered(true)} onClick={() => setIsHovered(false)}>Other Data</button>
+            <button className='btn' type="button" onClick={() => sendUpdatedUserToParent(userData)}>Update</button>
+            <button className='btn btn-red' type="button" onClick={() => sendDeletedUserToParent(userData)}>Delete</button>
+            </div>
         </div>
         </>
 
