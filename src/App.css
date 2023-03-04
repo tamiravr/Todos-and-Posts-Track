@@ -1,0 +1,10 @@
+input:invalid {
+    border: red solid 3px;
+  }
+
+input:not([type=button]){
+  height: 1rem;
+}
+* {
+  font-family: 'Open Sans', sans-serif;
+}
